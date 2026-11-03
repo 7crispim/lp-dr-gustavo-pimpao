@@ -37,6 +37,16 @@ jobs:
           SITEMAP_EXCLUDE: "agendar,direcionamento"
         run: node scripts/generate-sitemap.mjs
 
+      # Lista completa (LPs inclusive) para o menu Clientes do Link HUB.
+      # Token com escopo unico linkhub.paginas:write; sem o secret, so pula.
+      - name: Enviar paginas ao Link HUB
+        env:
+          SITEMAP_BASE_URL: "https://drgustavopimpaoortopedia.com.br"
+          LINKHUB_TOKEN: ${{ secrets.LINKHUB_PAGINAS_TOKEN }}
+          LINKHUB_AGENCIA: pulso
+          LINKHUB_SLUG: gustavo-pimpao
+        run: node scripts/enviar-paginas.mjs
+
       - name: Commitar sitemap.xml se mudou
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
